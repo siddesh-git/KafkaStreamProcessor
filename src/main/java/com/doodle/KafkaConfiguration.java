@@ -2,6 +2,9 @@ package com.doodle;
 
 import java.util.Properties;
 
+/**
+ * Configuration class to extract all Properties file keys
+ */
 public class KafkaConfiguration {
 
     private String producerBootstrapServerUrl;

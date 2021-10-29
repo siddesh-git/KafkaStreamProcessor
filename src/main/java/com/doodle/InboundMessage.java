@@ -1,5 +1,8 @@
 package com.doodle;
 
+/**
+ * Class to read required attributes from input kafka stream
+ */
 public class InboundMessage {
     String uid;
     Long ts;

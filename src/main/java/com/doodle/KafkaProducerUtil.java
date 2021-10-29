@@ -4,13 +4,10 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Properties;
 
 public class KafkaProducerUtil {
@@ -20,6 +17,7 @@ public class KafkaProducerUtil {
         this.kafkaConfiguration = kafkaConfiguration;
         producer = createProducer();
     }
+    //Kafka properties required to create producer to publish the message
     private Producer<String, String> createProducer() {
         final Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -33,7 +31,13 @@ public class KafkaProducerUtil {
     }
 
     public void produce(String message){
-
+        /*
+        Sample output data published
+        {"time":"2016-07-11 19:12","uidCount":49488} has been published
+        {"time":"2016-07-11 19:13","uidCount":47863} has been published
+        {"time":"2016-07-11 19:14","uidCount":40439} has been published
+        {"time":"2016-07-11 19:15","uidCount":42859} has been published
+         */
         ProducerRecord<String, String> record = new ProducerRecord<String, String>(kafkaConfiguration.getProducerTopic(), message);
         producer.send(record);
         producer.flush();
@@ -42,6 +46,8 @@ public class KafkaProducerUtil {
     }
 
     public static void main(String[] args) throws IOException {
+
+        //Used below messages to test the custom input data. Test code only.Can be deleted
         Properties properties = new Properties();
         properties.load(new FileInputStream("../../../resources/kafka.properties"));
         KafkaConfiguration kafkaConfiguration = new KafkaConfiguration();
